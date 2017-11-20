@@ -2,7 +2,7 @@ import axios from 'axios';
 import querystring from 'querystring';
 
 const API_KEY = "hackerrank|3319021-2142|943b7bec92dc3ef8bb98eba7d516a87cc4f8df28";
-const ROOT_URL = "http://api.hackerrank.com/checker/submission.json";
+const ROOT_URL = "https://api.hackerrank.com/checker/submission.json";
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const REQUEST_POSTS = "REQUEST_POSTS";
 export const INCREMENT_CHALLENGE = "INCREMENT_CHALLENGE";
