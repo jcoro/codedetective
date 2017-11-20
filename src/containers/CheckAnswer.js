@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ControlLabel, HelpBlock, Button } from 'react-b
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { incrementChallenge } from '../actions/index';
+import { markAsCompleted } from '../actions/index';
 
 
 class CheckAnswer extends Component {
@@ -27,15 +28,13 @@ class CheckAnswer extends Component {
     onFormSubmit(e) {
         e.preventDefault();
         const correctAns = this.props.challenges.list[this.props.challengeIndex].answer;
-        console.log(correctAns);
         const answers = this.props.challenges.list[this.props.challengeIndex].answer_feedback;
-
+        // Answer is CORRECT
         if ( this.state.formValue.match(new RegExp(correctAns, 'i')) ) {
-            console.log("CORRECT");
             this.setState({message: answers[0]});
             this.props.incrementChallenge(this.props.challengeIndex);
+            this.props.markAsComplete(this.props.challengeIndex);
         } else {
-            console.log("WRONG");
             this.setState({message: answers[1]});
         }
         this.setState({ value: e.target.value });
@@ -66,9 +65,6 @@ class CheckAnswer extends Component {
 }
 // lessons is defined in reducers/index.js
 function mapStateToProps(state) {
-    // console.log(state);
-    // Whatever is returned will show up as props inside CodePanel this.props
-
     return {
         challenges: state.challenges,
         challengeIndex: state.challengeIndex.active_challenge,
@@ -78,6 +74,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             incrementChallenge: incrementChallenge,
+            markAsComplete: markAsCompleted,
         }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(CheckAnswer)

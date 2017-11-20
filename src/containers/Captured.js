@@ -10,27 +10,41 @@ class Captured extends Component {
 
     render() {
         let capturedText;
-        if (this.props.challengeIndex < 3) {
-            capturedText = (<div>WANTED:<br/> {4 - this.props.challengeIndex} Syndicate Agents <br /> 1 KingPin</div>);
-        } else if (this.props.challengeIndex === 3){
-            capturedText = (<div>WANTED:<br/> {4 - this.props.challengeIndex} Syndicate Agent <br /> 1 KingPin</div>);
-        } else if(this.props.challengeIndex === 4){
+        let totalCompleted = 0;
+        for(let i = 0; i < this.props.completed.length; i++){
+            if(this.props.completed[i].isCompleted){
+                totalCompleted++;
+            }
+        }
+        if (totalCompleted < 3) {
+            capturedText = (<div>WANTED:<br/> {4 - totalCompleted} Syndicate Agents <br /> 1 KingPin</div>);
+        } else if (totalCompleted === 3){
+            capturedText = (<div>WANTED:<br/> {4 - totalCompleted} Syndicate Agent <br /> 1 KingPin</div>);
+        } else if(totalCompleted === 4){
             capturedText = (<div>WANTED:<br/> 0 Syndicate Agents <br /> 1 KingPin</div>);
         } else {
             capturedText = (<div>WANTED:<br/> 0 Syndicate Agents <br /> 0 KingPin</div>);
         }
+
+        let capturedImages = [];
+        for(let i = 0; i < this.props.completed.length; i++){
+            if(this.props.completed[i].id < 4){
+                capturedImages.push(
+                    <img src={this.props.completed[i].isCompleted ? criminalCap : criminal} key={this.props.completed[i].id} className="criminal" alt={this.props.completed[i].id} width="75" height="75"/>
+                )
+            } else {
+                capturedImages.push(
+                    <img src={this.props.completed[i].isCompleted ? kingpinCap : kingpin} key={this.props.completed[i].id} className="criminal" alt={this.props.completed[i].id} width="75" height="75"/>
+                )
+
+            }
+        }
+
         return(
             <div className="right-side-cap">
                 {capturedText}
-                {this.props.array.map(i =>{
-                    return (
-                        <img src={i<=this.props.challengeIndex?criminalCap:criminal} key={i} className="criminal" alt={i} width="75" height="75" />
-                    );
-                })}
-                {this.props.challengeIndex !== 5 ?
-                    <img src={kingpin} className="criminal" alt="kingpin" width="75" height="75"/> :
-                    <img src={kingpinCap} className="criminal" alt="kingpin" width="75" height="75"/>
-                }
+                {capturedImages}
+
                 <div>FOR:</div>
                 <ul>
                     <li>Cyber Hacking</li>
@@ -43,15 +57,12 @@ class Captured extends Component {
     }
 }
 
-// activePage is defined in reducers/index.js
 function mapStateToProps(state) {
-    // Whatever is returned will show up as props inside EvidencePanel
     return {
         challengeIndex: state.challengeIndex.active_challenge,
         array: state.challengeIndex.array,
+        completed: state.completed,
     };
 }
 
-// Promote Panel from a component to a container.
-// It needs to know about dispatch method, make it available as a prop.
 export default connect(mapStateToProps)(Captured);

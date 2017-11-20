@@ -2,16 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
+import Progress from './Progress';
 
 class Header extends Component {
 
     render() {
-        let challengeCounter;
-        if (this.props.challengeIndex < 5) {
-            challengeCounter = "Challenge:" + this.props.challenges.list[this.props.challengeIndex].number + "/5";
-        } else {
-            challengeCounter = (<span>Good Job!</span>);
-        }
+
         return (
             <Row bsClass="row no-gutters">
                 <Col md={8} className="no-gutters">
@@ -28,9 +24,7 @@ class Header extends Component {
                 </Col>
                 <Col md={4} className="no-gutters">
                     <div className="header">
-                        <div className="label">
-                            {challengeCounter}
-                        </div>
+                        <Progress/>
                     </div>
                 </Col>
             </Row>

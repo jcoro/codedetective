@@ -17,7 +17,7 @@ export default function() {
                 {
                     key: 3,
                     className: "text",
-                    content: "Find the number of days until the hack."
+                    content: " Use the Code Panel on the left to find and submit to us the number of days until the hack."
                 },
             ],
         },

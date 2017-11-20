@@ -7,6 +7,7 @@ import LanguageCodeReducer from './reducer_language_codes';
 import EvidenceReducer from './reducer_evidence';
 import ChallengeIndexReducer from './reducer_challenge_index';
 import CodeReducer from './reducer_code';
+import CompletedReducer from './reducer_completed';
 
 
 const rootReducer = combineReducers({
@@ -19,7 +20,7 @@ const rootReducer = combineReducers({
     evidence: EvidenceReducer,
     challengeIndex: ChallengeIndexReducer,
     code: CodeReducer,
-
+    completed: CompletedReducer,
 });
 
 export default rootReducer;

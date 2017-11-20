@@ -7,7 +7,15 @@ export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const REQUEST_POSTS = "REQUEST_POSTS";
 export const INCREMENT_CHALLENGE = "INCREMENT_CHALLENGE";
 export const UPDATE_CODE = "UPDATE_CODE";
+export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
+export const MARK_AS_COMPLETED = "MARK_AS_COMPLETED";
 
+export function markAsCompleted(index){
+    return {
+        type: 'MARK_AS_COMPLETED',
+        id: index,
+    }
+}
 
 export function selectPage(pages, id) {
     // selectPage is an Action Creator, it needs to return an action,
@@ -22,6 +30,13 @@ export function selectPage(pages, id) {
     }
 }
 
+export function changeLanguage(value){
+    return {
+        type: 'CHANGE_LANGUAGE',
+        newLanguage: value,
+    }
+}
+
 export function updateToNewCode(newCode) {
     return {
         type: 'UPDATE_CODE',
@@ -33,6 +48,13 @@ export function incrementChallenge(num) {
     return {
         type: 'INCREMENT_CHALLENGE',
         active_challenge: num + 1
+    }
+}
+
+export function chooseChallenge(num) {
+    return {
+        type: 'CHOOSE_CHALLENGE',
+        active_challenge: num,
     }
 }
 

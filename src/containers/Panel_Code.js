@@ -7,10 +7,13 @@ import {bindActionCreators} from 'redux';
 import {Row} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
-import { fetchPostsIfNeeded } from '../actions/index';
-import { updateToNewCode } from '../actions/index';
+import {fetchPostsIfNeeded} from '../actions/index';
+import {updateToNewCode} from '../actions/index';
+import {changeLanguage} from '../actions/index';
 import AceEditor from 'react-ace';
 import 'brace/mode/java';
+import 'brace/mode/python';
+import 'brace/mode/javascript';
 import 'brace/mode/io';
 import 'brace/theme/monokai';
 import 'brace/theme/github';
@@ -20,10 +23,6 @@ class CodePanel extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            selectedLanguage: 'Java'
-        };
 
         this.updateCode = this.updateCode.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -35,28 +34,36 @@ class CodePanel extends Component {
 
     showAnswer(event) {
         event.preventDefault();
-        let answer = this.props.code.defaults[this.props.challengeIndex].code;
+        let answer = this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].code;
         this.props.updateToNewCode(answer);
     };
 
     showHint(event) {
         event.preventDefault();
-        let hint = this.props.code.defaults[this.props.challengeIndex].code_hint;
+        let hint = this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].code_hint;
         this.props.updateToNewCode(hint);
     };
 
     showDefault(event) {
         event.preventDefault();
-        let default_code = this.props.code.defaults[this.props.challengeIndex].default_code;
+        let default_code = this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].default_code;
         this.props.updateToNewCode(default_code);
     };
 
     handleChange = (value) => {
-        this.setState({selectedLanguage:value});
+        // If the user has already changed the code, userSubmitted will not
+        // be null, and the code will remain when the user changes language.
+
+        let code = this.props.code.userSubmitted ?
+            this.props.code.userSubmitted :
+            this.props.code.defaults[this.props.languageCodes.indexOf(value)][this.props.challengeIndex].default_code;
+
+        this.props.changeLanguage(value);
+        this.props.updateToNewCode(code);
     };
 
     updateCode(newCode) {
-        this.props.updateToNewCode(newCode)
+        this.props.updateToNewCode(newCode);
     }
 
     onFormSubmit(event) {
@@ -74,9 +81,9 @@ class CodePanel extends Component {
                     <Col md={12} className="no-gutters">
                         <div className="panel-text-container">
                             <div>{this.props.handleChange}</div>
-                            <LanguagePicker value={this.state.selectedLanguage}
+                            <LanguagePicker value={this.props.languageCodes.selectedLanguage}
                                             onChange={this.handleChange}
-                                            options={this.props.languageCodes} />
+                                            options={this.props.languageCodes}/>
                             <div className="show-code"><Button onClick={this.showHint}>Show Hint</Button></div>
                             <div className="show-code"><Button onClick={this.showAnswer}>Show Answer</Button></div>
                             <div className="show-code"><Button onClick={this.showDefault}>Show Default</Button></div>
@@ -84,11 +91,11 @@ class CodePanel extends Component {
                             <form onSubmit={this.onFormSubmit}>
                                 <AceEditor
                                     showPrintMargin={false}
-                                    mode="java"
+                                    mode={this.props.selectedLanguage.toLowerCase()}
                                     theme="monokai"
                                     onChange={this.updateCode}
                                     name="editor"
-                                    value={this.props.code.userSubmitted ? this.props.code.userSubmitted : this.props.code.defaults[this.props.challengeIndex].default_code}
+                                    value={this.props.code.userSubmitted ? this.props.code.userSubmitted : this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].default_code}
                                     editorProps={{$blockScrolling: Infinity}}
                                     fontSize="16px"
                                     width="100%"
@@ -122,7 +129,7 @@ class CodePanel extends Component {
 
 // lessons is defined in reducers/index.js
 function mapStateToProps(state) {
-//console.log(state);
+//console.log(state.languageCodes.selectedLanguage);
     // Whatever is returned will show up as props inside CodePanel this.props
 
     return {
@@ -134,7 +141,8 @@ function mapStateToProps(state) {
             isFetching: state.compiledCodeObj.isFetching
         },
         languageCodes: state.languageCodes.codes,
-        selectedLanguage: state.languageCodes.selectedLanguage
+        selectedLanguage: state.languageCodes.selectedLanguage,
+        languageIndex: state.languageCodes.codes.indexOf(state.languageCodes.selectedLanguage)
     };
 }
 
@@ -144,9 +152,10 @@ function mapDispatchToProps(dispatch) {
         {
             fetchPostsIfNeeded: fetchPostsIfNeeded,
             updateToNewCode: updateToNewCode,
+            changeLanguage: changeLanguage,
         }, dispatch)
 }
 
 // Promote Panel from a component to a container.
-// It needs to know about dispatch method, make it available as a prop.
+
 export default connect(mapStateToProps, mapDispatchToProps)(CodePanel);
