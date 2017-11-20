@@ -58,15 +58,16 @@ export function chooseChallenge(num) {
     }
 }
 
-export const fetchPostsIfNeeded = () => (dispatch) => {
-    return fetchPosts(dispatch);
+export const fetchPostsIfNeeded = (code, lang) => (dispatch) => {
+    // fetchPosts(dispatch) is a Promise Object
+    return fetchPosts(dispatch, code, lang);
 };
 
-const fetchPosts = (dispatch) => {
+const fetchPosts = (dispatch, code, lang) => {
     const data = querystring.stringify({
         api_key: API_KEY,
-        source: "public class HelloWorld {public static void main(String[] args) {System.out.println(\"Hello, World\");}}",
-        lang: 3,
+        source: code,
+        lang: lang,
         testcases: JSON.stringify([""]),
         wait: true,
         callback_url: '',

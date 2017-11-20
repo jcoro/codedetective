@@ -30,6 +30,8 @@ class CodePanel extends Component {
         this.showAnswer = this.showAnswer.bind(this);
         this.showHint = this.showHint.bind(this);
         this.showDefault = this.showDefault.bind(this);
+        this.getEditorValue = this.getEditorValue.bind(this);
+        this.getLanguageCode = this.getLanguageCode.bind(this);
     }
 
     showAnswer(event) {
@@ -66,9 +68,30 @@ class CodePanel extends Component {
         this.props.updateToNewCode(newCode);
     }
 
+    getLanguageCode(){
+        switch (this.props.selectedLanguage){
+            case 'Java':
+                return 3;
+            case 'Python':
+                return 5;
+            case 'JavaScript':
+                return 20;
+            default:
+                return 3;
+        }
+    }
+
     onFormSubmit(event) {
         event.preventDefault();
-        this.props.fetchPostsIfNeeded();
+        let code = this.getEditorValue();
+        let lang= this.getLanguageCode();
+        this.props.fetchPostsIfNeeded(code, lang);
+    }
+
+    getEditorValue(){
+         return this.props.code.userSubmitted ?
+             this.props.code.userSubmitted :
+             this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].default_code;
     }
 
     render() {
@@ -95,7 +118,7 @@ class CodePanel extends Component {
                                     theme="monokai"
                                     onChange={this.updateCode}
                                     name="editor"
-                                    value={this.props.code.userSubmitted ? this.props.code.userSubmitted : this.props.code.defaults[this.props.languageIndex][this.props.challengeIndex].default_code}
+                                    value={this.getEditorValue()}
                                     editorProps={{$blockScrolling: Infinity}}
                                     fontSize="16px"
                                     width="100%"
