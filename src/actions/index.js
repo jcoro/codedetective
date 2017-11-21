@@ -2,13 +2,14 @@ import axios from 'axios';
 import querystring from 'querystring';
 
 const API_KEY = "hackerrank|3319021-2208|617289cd7ad085d28177eea27ea8a25f4aacc8f3";
-const ROOT_URL = "https://api.hackerrank.com/checker/submission.json";
+const ROOT_URL = "https://cors-anywhere-coronite.herokuapp.com/api.hackerrank.com/checker/submission.json";
 export const RECEIVE_POSTS = "RECEIVE_POSTS";
 export const REQUEST_POSTS = "REQUEST_POSTS";
 export const INCREMENT_CHALLENGE = "INCREMENT_CHALLENGE";
 export const UPDATE_CODE = "UPDATE_CODE";
 export const CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
 export const MARK_AS_COMPLETED = "MARK_AS_COMPLETED";
+
 
 export function markAsCompleted(index){
     return {
@@ -76,21 +77,27 @@ const fetchPosts = (dispatch, code, lang) => {
 
     const url = `${ROOT_URL}`;
 
-    const config = JSON.stringify({
-        hostname: 'api.hackerrank.com',
-        port: 80,
-        path: '/checker/submission.json',
-        method: 'POST',
+    const config = {
+        method: "POST",
+        body: data,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        }
-    });
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    };
+
+
     dispatch(requestPosts());
+
     return axios.post(url, data, config)
         .then(function (response) {
-            //console.log(response);
+            console.log(response);
             dispatch(receivePosts(response));
+        }).catch(function(error){
+            console.log(error);
         });
+
+        //System.out.println("Hello");
+
 };
 
 export const requestPosts = () => ({

@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.8.1",
+    "cors-anywhere": "^0.4.0",
+    "cross-fetch": "^1.1.1",
     "css-loader": "^0.23.0",
     "prismjs": "^1.8.1",
     "prop-types": "^15.6.0",
