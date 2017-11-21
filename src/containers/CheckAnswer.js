@@ -27,6 +27,7 @@ class CheckAnswer extends Component {
 
     onFormSubmit(e) {
         e.preventDefault();
+        this.setState({formValue:''});
         const correctAns = this.props.challenges.list[this.props.challengeIndex].answer;
         const answers = this.props.challenges.list[this.props.challengeIndex].answer_feedback;
         // Answer is CORRECT
