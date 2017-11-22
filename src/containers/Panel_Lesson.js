@@ -61,7 +61,7 @@ class LessonPanel1 extends Component {
                                 number called an <code className="language-java">int</code>. These are regular counting
                                 numbers, including 0 and negative numbers. -2, -1, 0, 1, 2, 3, 4 &hellip; are all <code
                                     className="language-java">int</code>s. <code className="language-java">String</code>
-                                and <code className="language-java"> int</code> are called: datatypes.
+                                and <code className="language-java"> int </code> are called: datatypes.
                             </div>
                             <br />
                             <br />
