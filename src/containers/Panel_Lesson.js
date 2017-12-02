@@ -3,6 +3,7 @@ import Header from './Header';
 import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
+import Scroll from 'react-scroll';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-okaidia.css';
 import 'prismjs/components/prism-java.js';
@@ -23,6 +24,7 @@ const code3 = Prism.highlight(codeText3, Prism.languages.java, 'java');
 const code4 = Prism.highlight(codeText4, Prism.languages.java, 'java');
 const code5 = Prism.highlight(codeText5, Prism.languages.java, 'java');
 
+let Link = Scroll.Link;
 
 class LessonPanel1 extends Component {
     render() {
@@ -32,7 +34,7 @@ class LessonPanel1 extends Component {
                 <Row bsClass="row no-gutters" className="text-area">
                     <Col md={8} className="no-gutters">
                         <div className="panel-text-container">
-                            <h1>Getting Started</h1>
+                            <h1 id="getting_started">Getting Started</h1>
                             <div className="text"><p>On CodeDetective.org, you can use several different coding languages to test your code, but Java is taught in this Lesson page.</p></div>
                             <div className="text"><p>For a Java program to run, you'll need a <code
                                 className="language-java">class</code> and a <code className="language-java">main(String[]
@@ -90,7 +92,7 @@ class LessonPanel1 extends Component {
                             </table>
                             <br />
                             <br />
-                            <h2>Variables</h2>
+                            <h2 id="variables">Variables</h2>
                             <div className="text">Variables are containers or "boxes" where we can store data. In Java,
                                 every variable has a type. You declare a variable by placing the type first, followed by
                                 a name of the variable, like this:
@@ -155,7 +157,7 @@ class LessonPanel1 extends Component {
                         <div className="text">In the modulus example above, 2 goes into 9 four times with a REMAINDER of 1, so the answer is 1.</div>
                         <br/>
                         <br/>
-                        <h2>Strings</h2>
+                        <h2 id="strings">Strings</h2>
                         <div className="text">In Java, words and groups of words are called Strings and are members of the  <code className="language-java"> String </code> class.</div>
                         <div className="text">Strings are made up of letters and spaces which Java calls: <code className="language-java">char</code>s for characters.</div>
 
@@ -166,7 +168,7 @@ class LessonPanel1 extends Component {
                             </pre>
                         <br/>
                         <br/>
-                        <h2>Conditionals and Loops</h2>
+                        <h2 id="loops">Loops and Conditionals</h2>
                         <div className="text">One of the most powerful things about computers is that we can make them do things over and over again. For this, we can use loops. There are several kinds of loops.</div>
                         <pre className="line-numbers language-java">
                                 <code className="language-java">
@@ -175,7 +177,7 @@ class LessonPanel1 extends Component {
                             </pre>
                         <br/>
                         <br/>
-                        <h2>Arrays and Matrices</h2>
+                        <h2 id="arrays">Arrays and Matrices</h2>
                         <div className="text">Sometimes, it's handy to group things together - like when you put groceries in a bag. In Java, we can group things together by putting them in Arrays.</div>
                         <br/>
                         <br/>
@@ -230,14 +232,15 @@ class LessonPanel1 extends Component {
                     </Col>
                     <Col md={4} className=" no-gutters">
                         <ul className="lesson-cont">
-                            <li><a>Getting Started</a></li>
-                            <li><a>Variables</a></li>
-                            <li><a>Strings</a></li>
-                            <li><a>Loops and Conditionals</a></li>
-                            <li><a>Arrays and Matrices</a></li>
+                            <li><Link  to="getting_started" spy={true} smooth={true} duration={500}>Getting Started</Link></li>
+                            <li><Link  to="variables" spy={true} smooth={true} duration={700}>Variables</Link></li>
+                            <li><Link  to="strings" spy={true} smooth={true} duration={900}>Strings</Link></li>
+                            <li><Link  to="loops" spy={true} smooth={true} duration={1100}>Loops and Conditionals</Link></li>
+                            <li><Link to="arrays" spy={true} smooth={true} duration={1200}>Arrays and Matrices</Link></li>
                         </ul>
                     </Col>
                 </Row>
+                <Link to="cd_app"  spy={true} smooth={true} duration={1000} id="top_button">&#9651;</Link>
             </div>
         );
     }

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Header from './Header';
-import Typist from 'react-typist';
 import {connect} from 'react-redux';
 import {Row} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
@@ -14,50 +13,26 @@ class ResourcesPanel extends Component {
 
                     <Col md={8} className="no-gutters">
                         <div className="panel-text-container">
-                            <Typist cursor={{hideWhenDone: false}} avgTypingDelay={10}>
 
-                                <div className="text">Greetings, Detective:</div>
+                                <div className="text"><a href="https://docs.oracle.com/javase/8/docs/" target="_blank" rel="noopener noreferrer">Java Documentation</a></div>
+                            <br/>
+                            <br/>
+                            <div className="text"><a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">Python Documentation</a></div>
                                 <br/>
                                 <br/>
-                                <div className="text">We're hot on the trail of an international crime syndicate. "The
-                                    Syndicate" as we call them, are experts in all manner of encrypted
-                                    communications, and they've got agents all over the globe. We need your coding and
-                                    programming expertise to crack their codes and track them down.
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="text">The EVIDENCE button to the left is where you'll find the codes we
-                                    need
-                                    cracked.
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="text">The CODE button to the left is where you'll be able to test your
-                                    code.
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="text">The LESSON button to the left is where you'll be able to learn
-                                    more
-                                    skills.
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="text">The RESOURCES button to the left is where you'll be able to find
-                                    links
-                                    to
-                                    additional resources.
-                                </div>
-                                <br/>
-                                <br/>
-                                <div className="text">Good Luck - We're counting on you.</div>
-                                <br/>
-                                <div className="text">- Sargent O'Malley | Gotham Police Department</div>
-                            </Typist>
+                            <div className="text"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference" target="_blank" rel="noopener noreferrer">JavaScript Documentation</a></div>
+                            <br/>
+                            <br/>
                         </div>
                     </Col>
-                    <Col md={4} className="side-column no-gutters">
-                        Side Column
+                    <Col md={4} className="no-gutters">
+                        <ul className="lesson-cont">
+                            <li>Technologies used on CodeDetective.org:</li>
+                            <li><a href="https://nodejs.org/en/" target="_blank" rel="noopener noreferrer">Node.js</a></li>
+                            <li><a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a></li>
+                            <li><a href="https://redux.js.org/" target="_blank" rel="noopener noreferrer">Redux</a></li>
+                            <li><a href="https://www.hackerrank.com/api" target="_blank" rel="noopener noreferrer">HackerRank API</a></li>
+                        </ul>
                     </Col>
                 </Row>
             </div>

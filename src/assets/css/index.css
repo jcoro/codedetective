@@ -173,6 +173,26 @@ button.btn:active{
 .text {
     display: inline-block;
 }
+.text a {
+    color:#FF9600;
+}
+#top_button{
+    position: fixed;
+    bottom: 15px;
+    right: 100px;
+    border: 2px solid;
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    text-align: -webkit-center;
+    box-shadow: 3px 3px 2px #32ec76;
+}
+#top_button:hover{
+    cursor:pointer;
+}
+#top_button:active{
+    bottom:10px;
+}
 .header .stats {
     flex: 6;
     display: flex;
